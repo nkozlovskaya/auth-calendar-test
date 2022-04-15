@@ -1,12 +1,14 @@
 import { Header } from "antd/lib/layout/layout";
 import { Menu, Row } from "antd";
-// import MenuItem from "antd/lib/menu/MenuItem";
 import { useNavigate } from "react-router-dom";
 import { RoutesName } from "../routes";
 import { useTypedSelector } from "../hooks/useTypedSelector";
+import { useDispatch } from "react-redux";
+import { AuthActionCreators } from "../store/redusers/auth/action-creators";
 
 const Navbar = () => {
   let navigate = useNavigate();
+  const dispatch = useDispatch();
   const { isAuth } = useTypedSelector((state) => state.auth);
   return (
     <Header>
@@ -15,7 +17,10 @@ const Navbar = () => {
           <>
             <div style={{ color: "white" }}>Nadezhda Kozlovskaya</div>
             <Menu theme="dark" mode="horizontal" selectable={false}>
-              <Menu.Item onClick={() => console.log("Logout")} key={1}>
+              <Menu.Item
+                onClick={() => dispatch(AuthActionCreators.logout())}
+                key={1}
+              >
                 Logout
               </Menu.Item>
             </Menu>
